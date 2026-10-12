@@ -13,7 +13,7 @@ A browser extension that summarizes Reddit posts and their comment sections usin
 
 - **Extension** — TypeScript, Vite, built for both Chromium and Gecko 
 - **Backend** — Node.js, Express, TypeScript
-- **AI** — Anthropic Claude (claude-haiku) or OpenRouter as a drop-in alternative
+- **AI** — Groq (`openai/gpt-oss-20b`), Google Gemini (`gemini-2.5-flash`) and Anthropic Claude (`claude-haiku-4-5`), tried in that order with fallback to the next provider if one fails
 
 ---
 
@@ -23,7 +23,7 @@ A browser extension that summarizes Reddit posts and their comment sections usin
 
 - Node.js 18+
 - npm 8+
-- An [Anthropic API key](https://console.anthropic.com/) or an [OpenRouter API key](https://openrouter.ai/)
+- API keys for the AI providers you want to enable: [Groq](https://console.groq.com/), [Google Gemini](https://aistudio.google.com/apikey) and/or [Anthropic](https://console.anthropic.com/)
 
 ### 1. Clone the repo
 
@@ -47,11 +47,16 @@ cd express-backend
 cp .env.example .env
 ```
 
-Open `.env` and add your API key:
+Open `.env` and add the API key(s) for the provider(s) you want to use:
 
 ```
+GROQ_API_KEY=your_key_here
+GEMINI_API_KEY=your_key_here
 ANTHROPIC_API_KEY=your_key_here
+PORT=3000
 ```
+
+Providers are tried in order (Groq → Gemini → Anthropic), so you only need the key for the provider you actually want to rely on.
 
 ### 4. Run the backend
 

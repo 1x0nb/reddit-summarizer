@@ -13,7 +13,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   })
     .then((response) => response.json())
     .then((json) => sendResponse({ ok: true, summary: json }))
-    .catch((error) => sendResponse({ ok: false, error: err.message }));
+    .catch((error) => sendResponse({ ok: false, error: error.message }));
 
   return true;
 });

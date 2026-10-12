@@ -1,6 +1,6 @@
 # Privacy Policy — Reddit Summarizer
 
-**Last updated:** July 29, 2026
+**Last updated:** October 12, 2026
 
 Reddit Summarizer is a browser extension that uses AI to summarize Reddit posts and their top comments. This page explains what data the extension interacts with and how it's used.
 
@@ -28,7 +28,13 @@ This data is used only to generate the AI summary that's displayed back to you. 
 
 ## Third parties
 
-The scraped post/comment content is sent to our backend server, which forwards it to an AI provider (currently Meta's Llama model via a third-party inference API) to generate the summary text. No other third parties receive this data.
+The scraped post/comment content is sent to our backend server, which forwards it to an AI inference provider to generate the summary text. The backend tries providers in this order, using the first one that succeeds:
+
+- **Groq** — `openai/gpt-oss-20b`
+- **Google Gemini** — `gemini-2.5-flash`
+- **Anthropic Claude** — `claude-haiku-4-5`
+
+Only the content needed for the summary you requested is sent to the provider handling that request. No other third parties receive this data.
 
 ## Data retention
 

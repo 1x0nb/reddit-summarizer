@@ -1,6 +1,6 @@
 @echo off
-echo Starting NextJS....
+echo Starting Reddit Summarizer (express.js server + extension dev server)....
 
 start cmd /k "npm run dev:all"
 
-echo Server started successfully!
+echo Dev servers started successfully!
