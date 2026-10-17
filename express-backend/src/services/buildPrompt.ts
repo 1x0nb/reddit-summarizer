@@ -17,8 +17,15 @@ export function buildPrompt(data: { currentSubreddit: string; author: string; ti
       "communityReactionBreakdown": string
       "subredditDescription": string
     }
+    HARD LENGTH LIMITS (non-negotiable, apply regardless of how long the input is):
+    - The ENTIRE JSON response must not exceed 200 words in total across all fields.
+    - Never scale the summary with the input: a long post must still produce a short summary. Compress, do not transcribe.
+    - "post": maximum 5 sentences (max 120 words), no matter how long the post body is.
+    - "community": maximum 3 sentences (max 60 words).
+    - "communityReactionBreakdown": exactly 1 sentence (max 30 words).
+    - "subredditDescription": maximum 2 sentences (max 30 words).
     Rules:
-    - "post": Every 10 lines of text needs to be reduced to 2-3 lines summarizing ONLY what OP said. Do not add opinions or external info. Include critical details.
+    - "post": Summarize ONLY what OP said in at most 5 sentences, keeping only the most critical details. Do not add opinions or external info.
     - "community": 2-3 sentences summarizing the comments and what people had to say. Base only on provided comments.
         Do not include the reaction of the community here.
         If there are no comments, set this to "There are no comments on this post."
@@ -47,6 +54,7 @@ export function buildPrompt(data: { currentSubreddit: string; author: string; ti
     - Do not invent details not present in title/body/comments
     - If comments are missing, use communityReaction "Inconclusive" and communityReactionBreakdown "There aren't enough comments for a valid breakdown."
     - Keep output valid JSON only
+    - Respect the HARD LENGTH LIMITS above even if the post or comments are very long; shorter is always preferred over completeness
     Input:
     Current Subreddit: ${data.currentSubreddit} | Use this subreddit to figure out more context on the topic (example: r/OffMyChest is for confessions...etc)
     OP handle: ${data.author} | if it's [deleted] you can mention it at the start of the summary that the OP deleted his account.
